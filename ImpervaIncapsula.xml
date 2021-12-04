@@ -1,0 +1,75 @@
+<patternDefinitions>
+	<!-- All pattern will define in this section -->
+	<pattern name="patStrSepPipe">
+		<![CDATA[[^|]*]]>
+	</pattern>
+	<pattern name="patInt">
+		<![CDATA[\d]]>
+	</pattern>
+	<pattern name="gPatMesgBody">
+		<![CDATA[.*]]>
+	</pattern>
+
+</patternDefinitions>
+<eventFormatRecognizer>
+	<![CDATA[CEF:\d+\|Incapsula\|SIEMintegration\|]]>
+</eventFormatRecognizer>
+<parsingInstructions>
+	<collectFieldsByRegex src="$_rawmsg">
+		<regex>
+			<!-- CEF:0|Incapsula|SIEMintegration|1|1|Bot Access Control|4| -->
+			<![CDATA[CEF:\d\|<reptVendor:gPatMesgBodyMin>\|<reptModel:gPatStr>\|<_devVersion:gPatStr>\|<_signatureID:patInt>\|<eventName:gPatMesgBodyMin>\|<eventSeverity:gPatInt>\|<_body:gPatMesgBody>]]>
+		</regex>
+	</collectFieldsByRegex>
+<collectAndSetAttrByRegex src="$_rawmsg">
+	<regex>
+	    <![CDATA[CEF:\d\|<reptVendor:gPatMesgBodyMin>\|<reptModel:gPatStr>\|<_devVersion:gPatStr>\|<_signatureID:patInt>\|<eventName:gPatMesgBodyMin>\|<eventSeverity:gPatInt>\|<_body:gPatMesgBody>]]>
+	</regex>
+</collectAndSetAttrByRegex>
+<collectFieldsByKeyValuePair sep=" " kvsep="=" src="$_body">
+	<attrKeyMap attr="fileId" key="fileId"/>
+	<attrKeyMap attr="eventSource" key="sourceServiceName"/>
+	<attrKeyMap attr="siteId" key="siteid"/>
+	<attrKeyMap attr="accountId" key="suid"/>
+	<attrKeyMap attr="httpUserAgent" key="requestClientApplication"/>
+	<attrKeyMap attr="_deviceFacility" key="deviceFacility"/>
+    <!-- cs2 = JS support  -->
+	<attrKeyMap attr="_cs2" key="cs2"/>
+	<attrKeyMap attr="_cs2Label" key="cs2Label"/>
+	<attrKeyMap attr="_cs3" key="cs3"/>
+	<attrKeyMap attr="_cs3Label" key="cs3Label"/>
+	<attrKeyMap attr="_cs1" key="cs1"/>
+	<attrKeyMap attr="_cs1Label" key="cs1Label"/>
+    <attrKeyMap attr="_cs4" key="cs4"/>
+	<attrKeyMap attr="_cs4Label" key="cs4Label"/>
+    <attrKeyMap attr="_cs5" key="cs5"/>
+	<attrKeyMap attr="_cs5Label" key="cs5Label"/>
+    <attrKeyMap attr="dproc" key="dproc"/>
+	<attrKeyMap attr="_cs6" key="cs6"/>
+    <attrKeyMap attr="_cs6Label" key="cs6Label"/>
+    <attrKeyMap attr="reptGeoCountryCodeStr" key="ccode"/>
+	<attrKeyMap attr="incidentRptGeoCity" key="cicode"/>
+    <attrKeyMap attr="incidentRptGeoLatitude" key="cs7"/>
+    <attrKeyMap attr="cs7Label" key="cs7Label"/>
+	<attrKeyMap attr="incidentRptGeoLongitude" key="cs8"/>
+    <attrKeyMap attr="cs8Label" key="cs8Label"/>
+	<attrKeyMap attr="accountName" key="Customer"/>
+    <!-- <attrKeyMap attr="startTime" key="start"/> -->
+	<attrKeyMap attr="request" key="request"/>
+    <attrKeyMap attr="httpReferrer" key="ref"/>
+	<attrKeyMap attr="dhcpReqType" key="requestMethod"/>
+    <attrKeyMap attr="appTransportProto" key="app"/>
+    <attrKeyMap attr="dhcpReqType" key="act"/>
+	<attrKeyMap attr="deviceExternalId" key="deviceExternalId"/>
+    <attrKeyMap attr="cs10" key="cs10"/>
+	<attrKeyMap attr="cs10Label" key="cs10Label"/>
+    <attrKeyMap attr="cpt" key="cpt"/>
+    <attrKeyMap attr="src" key="src"/>
+	<attrKeyMap attr="ver" key="ver"/>
+    <!-- <attrKeyMap attr="endTime" key="end"/> -->
+    <attrKeyMap attr="fileType" key="fileType"/>
+    <attrKeyMap attr="filePermission" key="filePermission"/>
+	<attrKeyMap attr="cs9" key="cs9"/>
+    <attrKeyMap attr="cs9Label" key="cs9Label"/>
+    </collectFieldsByKeyValuePair>
+</parsingInstructions>
